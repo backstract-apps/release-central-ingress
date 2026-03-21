@@ -1,0 +1,172 @@
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: nginx
+  namespace: apps-release
+spec:
+  controller: k8s.io/ingress-nginx
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-srv-apps-release
+  namespace: apps-release
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "121"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: cc1fbde45ead-in-south-01.mayson.dev
+      http:
+        paths:
+          - path: /us-west-1-backstractelb-4b8e19-coll-4bf5e232dd794dc18fd1e2c025336b20/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /eu-west-1-backstractelb-66d3c2-coll-ce9be193081743929cbe41bc5fec0c47/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /ap-southeast-2-backstractelb-0817ad-coll-61d3d234f7684691a692f3173dcdc938/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /eu-west-2-backstractelb-8e802c-coll-63da62ec6be4400389445bef155d55ef/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /ap-northeast-2-backstractelb-a3fd21-coll-3c7d4514aab14347899c7e86a17f1441/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /eu-west-2-backstractelb-bc43d5-coll-5578e63b0cd54a608dabb458ac539ae1/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /eu-west-2-backstractelb-46acea-coll-29240b743c864a9ca7f14436fb06bc13/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /ap-northeast-1-backstractelb-522c42-coll-3eef122e5d104b7aa4d898379811a8aa/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /ap-southeast-1-backstractelb-75802b-coll-e96c818683ff431f9a7090d328184c87/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /eu-west-2-backstractelb-fa627b-coll-5b470af4607143dfa3320626b0520f2a/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /ap-southeast-2-backstractelb-4d7861-coll-de86b77485ea4fb7a472d6ebb81c8a80/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /eu-west-2-backstractelb-57ab6c-coll-124d63a9041d49658fee81f1aec6648c/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /ap-southeast-1-backstractelb-b99aac-coll-d11b3259ded549759d2f8694f5946702/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /eu-west-1-backstractelb-e62fc3-coll-54e64fab2a12403fa0de9b401a20b02c/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /ap-northeast-2-backstractelb-9407f1-coll-c171121ed3014d058758d7e565efba61/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /us-west-2-backstractelb-3701ed-coll-5f1b74c253ff4122b3249aea2b3bc2e8/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /us-east-2-backstractelb-ee1a41-coll-6fcf23eb98a74e4584832681fb2e876c/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /us-east-1-backstractelb-ee5d52-coll-c8d7daf7e4b54303bc993cf0b2ac2351/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /eu-west-2-backstractelb-ead62a-coll-62421ca3d0d84122ac039eec6b11851a/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /us-west-1-backstractelb-8274c3-coll-8219f64785d840be8e64ac00503d28c6/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /ap-southeast-1-backstractelb-5eacf1-coll-3c4f8ae4c5a54d9ebf5320a2b563ff61/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          
