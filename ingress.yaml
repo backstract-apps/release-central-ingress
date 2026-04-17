@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: nginx
+  namespace: apps-release
+spec:
+  controller: k8s.io/ingress-nginx
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-srv-apps-release
+  namespace: apps-release
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "121"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: cc1fbde45ead-in-south-01.mayson.dev
+      http:
+        paths:
+          - path: /us-east-2-backstractelb-9bb17d-coll-efc3d2fd085d44e982fe08a8a5314554/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          - path: /us-west-2-backstractelb-3dfbd2-coll-cc0b8f33c9ec4e8e9385d7cd6532189c/
+            pathType: Prefix
+            backend:
+              service:
+                name: keda-interceptor-proxy
+                port:
+                  number: 8080
+          
