@@ -1,0 +1,36 @@
+name: CD - Apply Central Ingress rules to K8s Cluster
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    name: Apply New Ingress Rules to EKS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install Kube Control
+        uses: azure/setup-kubectl@v4
+        with:
+          version: 'v1.31.0'
+        id: install
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Update kube config to point to EKS
+        run: aws eks update-kubeconfig --name backstract-dev --region ap-south-1
+
+      - name: Apply Ingress to Amazon EKS
+        run: |
+          kubectl apply -f ingress.yaml -n apps-release
